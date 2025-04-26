@@ -142,7 +142,7 @@ export class CompanyprofileComponent implements OnInit {
       address: this.tempProfileData.address
     };
   
-    this.http.put(`${this.apiUrl}/profile/update/`, profileData).subscribe({
+    this.profileService.updateProfile(user.uid, profileData).subscribe({
       next: (response: any) => {
         this.userProfile = {
           ...this.userProfile,
