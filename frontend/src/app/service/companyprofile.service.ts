@@ -33,6 +33,18 @@ export class CompanyProfileService {
     );
   }
 
+  updateProfile(profileData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/profile/update/`, profileData).pipe(
+      tap((updatedProfile) => {
+        this.currentProfileSubject.next(updatedProfile);
+      }),
+      catchError((error) => {
+        this.showAlert('Update Error', 'Failed to update profile');
+        return throwError(() => error);
+      })
+    );
+  }
+
   fetchJobPositions(uid: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/job-positions/list/?uid=${uid}`).pipe(
       tap((positions) => {

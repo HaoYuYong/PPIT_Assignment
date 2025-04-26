@@ -93,6 +93,16 @@
         margin-right: 10px;
       }
     }
+
+    /* Style for inputs in edit mode */
+    .basic-info-content ion-input {
+      color: #333 !important;
+    }
+
+    /* Date input styling */
+    ion-input[type="date"] {
+      color: #333;
+    }
   }
 
   /* Loading spinner */
@@ -399,38 +409,6 @@
               line-height: 1.5;
               margin-bottom: 10px;
             }
-            
-            .education-dates {
-              font-size: 0.8rem;
-              color: #888;
-              font-style: italic;
-            }
-          }
-        }
-        
-        .education-edit {
-          ion-item {
-            --background: transparent;
-            --border-color: #e0e0e0;
-            --padding-start: 0;
-            --inner-padding-end: 0;
-            margin-bottom: 15px;
-            
-            &:last-child {
-              margin-bottom: 20px;
-            }
-          }
-          
-          .education-edit-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            
-            ion-button {
-              --border-radius: 6px;
-              --padding-start: 20px;
-              --padding-end: 20px;
-            }
           }
         }
       }
@@ -537,7 +515,7 @@
   }
 }
 
-/* Position Modal (***************ITS HERE***************) */
+/* Position Modal */
 .add-position-modal {
   position: fixed;
   bottom: 0;
@@ -605,40 +583,6 @@
   to {
     transform: translateY(0);
   }
-}
-
-/* General Styles */
-ion-card {
-  margin: 16px;
-}
-
-.empty-message {
-  color: var(--ion-color-medium);
-  font-style: italic;
-  text-align: center;
-}
-
-.action-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-}
-
-.add-form, .edit-form {
-  padding: 16px;
-  border: 1px solid var(--ion-color-light);
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-ion-item {
-  --padding-start: 0;
-  --inner-padding-end: 0;
-  margin-bottom: 16px;
-}
-
-ion-button {
-  margin-top: 8px;
 }
 
 /* Work Experience Section */
@@ -950,4 +894,31 @@ ion-button {
       --padding-end: 20px;
     }
   }
+}
+
+/* Action buttons for profile edit */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  
+  ion-button {
+    flex: 1;
+    --border-radius: 8px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    font-weight: 500;
+  }
+}
+
+/* Style for date input in edit mode */
+ion-input[type="date"] {
+  color: #333;
+  --placeholder-color: #666;
+  --placeholder-opacity: 1;
+}
+
+/* Ensure inputs in edit mode are visible */
+.basic-info-content ion-input {
+  color: #333 !important;
 }
