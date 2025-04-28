@@ -9,7 +9,7 @@ import { appRoutes } from './app.routes';
 import { HomeComponent } from './employee/employeehome/employeehome.component';
 import { JobseekComponent } from './employee/jobseek/jobseek.component';
 import { CreatecvComponent } from './employee/createcv/createcv.component';
-import { ProfileComponent } from './employee/employeeprofile/employeeprofile.component';
+//import { ProfileComponent } from './employee/employeeprofile/employeeprofile.component';
 //General
 import { HeaderComponent } from './header/header.component'; // Import HeaderComponent
 import { LoginComponent } from './login/login.component';
@@ -27,6 +27,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms'; // Add this 
 // Import services
 import { RegisterService } from './service/register.service';
 import { provideHttpClient } from '@angular/common/http';
+//HTTP Client
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { provideHttpClient } from '@angular/common/http';
     HomeComponent,
     JobseekComponent,
     CreatecvComponent,
-    ProfileComponent,
+    //ProfileComponent,
     LoginComponent,
     RegisterComponent,
     CompanyhomeComponent,
@@ -50,7 +52,8 @@ import { provideHttpClient } from '@angular/common/http';
     // AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     FormsModule, // Add FormsModule
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Allow Web Components like <ion-button>
   providers: [RegisterService, provideHttpClient()],

@@ -9,6 +9,7 @@ import { CompanyhomeComponent } from './company/companyhome/companyhome.componen
 import { EmpseekComponent } from './company/empseek/empseek.component';
 import { PlatformComponent } from './company/platform/platform.component';
 import { CompanyprofileComponent } from './company/companyprofile/companyprofile.component';
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 //General
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -28,6 +29,7 @@ export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'homepage', component: LandingComponent },
+  { path: 'forgot-password', component: ForgotPassComponent},
   
   //Company
   { path: 'comp-home', component: CompanyhomeComponent },
