@@ -6,6 +6,11 @@ from .models import User, JobPosition, AboutMe, Education, WorkExperience, Skill
 from django.views.decorators.http import require_http_methods
 import sqlite3
 from django.db import connection
+from django.db import IntegrityError
+# from django.core.exceptions import ObjectDoesNotExist
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+# from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,11 +18,6 @@ import google.generativeai as genai
 import os
 from django.core.mail import send_mail
 
-from django.db import IntegrityError
-# from django.core.exceptions import ObjectDoesNotExist
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from rest_framework import status
 
 @csrf_exempt
 def register(request):
@@ -129,51 +129,6 @@ def get_profile(request):
     
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
-#AI API
-genai.configure(api_key="AIzaSyDFDX44M45otQWVR1eSMigLxwUZSfX90aM")
-
-model = genai.GenerativeModel("gemini-2.0-flash")
-
-@csrf_exempt
-def chat_view(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            message = data.get('message', '')
-
-            response = model.generate_content(message)
-            reply = response.text.strip()
-
-            return JsonResponse({'reply': reply})
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-
-    return JsonResponse({'error': 'Only POST allowed'}, status=405)
-
-@csrf_exempt
-def forgot_password(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        email = data.get('email')
-
-        if not email:
-            return JsonResponse({'error': 'Email required'}, status=400)
-        
-        #Check if its in our database
-
-        #send email
-
-        send_mail(
-            subject='Password Reset Request',
-            message='test123',
-            from_email='jobconnectstaff@gmail.com',
-            recipient_list=[email],
-            fail_silently=False,
-        )
-
-        return JsonResponse({'success': True})
-    
-    return JsonResponse({'error': 'Invalid request'}, status=400)
 @csrf_exempt
 @require_http_methods(["PUT"])
 def update_profile(request):
@@ -982,3 +937,49 @@ def toggle_employee_favourite(request):
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+#AI API
+genai.configure(api_key="AIzaSyDFDX44M45otQWVR1eSMigLxwUZSfX90aM")
+
+model = genai.GenerativeModel("gemini-2.0-flash")
+
+@csrf_exempt
+def chat_view(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            message = data.get('message', '')
+
+            response = model.generate_content(message)
+            reply = response.text.strip()
+
+            return JsonResponse({'reply': reply})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Only POST allowed'}, status=405)
+
+@csrf_exempt
+def forgot_password(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+
+        if not email:
+            return JsonResponse({'error': 'Email required'}, status=400)
+        
+        #Check if its in our database
+
+        #send email
+
+        send_mail(
+            subject='Password Reset Request',
+            message='test123',
+            from_email='jobconnectstaff@gmail.com',
+            recipient_list=[email],
+            fail_silently=False,
+        )
+
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'error': 'Invalid request'}, status=400)
