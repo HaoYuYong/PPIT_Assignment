@@ -8,8 +8,8 @@ import { appRoutes } from './app.routes';
 // Import your employee components
 import { HomeComponent } from './employee/employeehome/employeehome.component';
 import { JobseekComponent } from './employee/jobseek/jobseek.component';
-import { CreatecvComponent } from './employee/createcv/createcv.component';
-//import { ProfileComponent } from './employee/employeeprofile/employeeprofile.component';
+import { FavouriteComponent } from './employee/favourite/favourite.component';
+//import { EmployeeprofileComponent } from './employee/employeeprofile/employeeprofile.component';
 //General
 import { HeaderComponent } from './header/header.component'; // Import HeaderComponent
 import { LoginComponent } from './login/login.component';
@@ -18,7 +18,7 @@ import { LandingComponent } from './landing/landing.component';
 // Import your company components
 import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
 import { EmpseekComponent } from './company/empseek/empseek.component';
-import { PlatformComponent } from './company/platform/platform.component';
+import { EmpfavouriteComponent } from './company/empfavourite/empfavourite.component';
 import { CompanyprofileComponent } from './company/companyprofile/companyprofile.component';
 
 // Import Angular Modules
@@ -38,11 +38,13 @@ import { HttpClientModule } from '@angular/common/http';
     JobseekComponent,
     CreatecvComponent,
     //ProfileComponent,
+    FavouriteComponent,
+    EmployeeprofileComponent,
     LoginComponent,
     RegisterComponent,
     CompanyhomeComponent,
     EmpseekComponent,
-    PlatformComponent,
+    EmpfavouriteComponent,
     CompanyprofileComponent,
     LandingComponent
   ],
