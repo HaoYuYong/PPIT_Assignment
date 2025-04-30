@@ -1,0 +1,128 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Feedback List</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div class="main-content">
+    <!-- Left Column - Feedback List -->
+    <div class="feedback-list-column">
+      <ion-list>
+        <ion-item 
+          *ngFor="let feedback of feedbacks" 
+          (click)="selectFeedback(feedback)"
+          [class.selected]="selectedFeedback?.bid === feedback.bid">
+          <ion-icon slot="start" name="document-text-outline"></ion-icon>
+          <ion-label>
+            <h2>{{ feedback.f_title }}</h2>
+            <p>Status: {{ feedback.status | titlecase }}</p>
+            <p *ngIf="feedback.staff_id">Assigned to: {{ feedback.staff_id }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- Right Column - Details View -->
+    <div class="details-column">
+      <div *ngIf="!selectedFeedback" class="no-selection">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <h3>Select Feedback</h3>
+        <p>Choose a feedback from the list to view details</p>
+      </div>
+
+      <div *ngIf="selectedFeedback" class="feedback-details">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <div class="title-row">
+                <span class="feedback-title">{{ selectedFeedback.f_title }}</span>
+              </div>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="section">
+              <ion-list-header>
+                <ion-label>Feedback Details</ion-label>
+              </ion-list-header>
+              
+              <div class="detail-row">
+                <strong>Status:</strong> {{ selectedFeedback.status | titlecase }}
+              </div>
+              
+              <div class="detail-row" *ngIf="selectedFeedback.staff_id">
+                <strong>Assigned Staff:</strong> {{ selectedFeedback.staff_id }}
+              </div>
+              
+              <div class="detail-row">
+                <strong>Submitted by:</strong> {{ selectedFeedback.uid }}
+              </div>
+              
+              <div class="detail-row">
+                <strong>Submitted on:</strong> {{ selectedFeedback.created_at | date:'medium' }}
+              </div>
+            </div>
+
+            <div class="section">
+              <ion-list-header>
+                <ion-label>Description</ion-label>
+              </ion-list-header>
+              <div class="description-content">{{ selectedFeedback.f_description }}</div>
+            </div>
+            
+            <div class="section" *ngIf="selectedFeedback.reply">
+              <ion-list-header>
+                <ion-label>Staff Reply</ion-label>
+              </ion-list-header>
+              <div class="reply-content">{{ selectedFeedback.reply }}</div>
+            </div>
+
+            <div class="action-buttons" *ngIf="selectedFeedback.status === 'new'">
+              <ion-button expand="block" (click)="openAssignModal()">
+                Assign to Staff
+              </ion-button>
+            </div>
+
+            <div class="assigned-info" *ngIf="selectedFeedback.status !== 'new' && selectedFeedback.staff_id">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <span>Assigned to {{ selectedFeedback.staff_id }}</span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assign Modal -->
+  <ion-modal [isOpen]="showAssignModal" (didDismiss)="showAssignModal = false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Assign Feedback</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="showAssignModal = false">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="assign-content">
+        <ion-list>
+          <ion-item>
+            <ion-label>Select Staff</ion-label>
+            <ion-select [(ngModel)]="selectedStaffId" interface="popover">
+              <ion-select-option *ngFor="let staff of staffList" [value]="staff.uid">
+                {{ staff.name }} ({{ staff.uid }})
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        
+        <div class="assign-actions">
+          <ion-button expand="block" (click)="assignFeedback()" [disabled]="!selectedStaffId">
+            Assign
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

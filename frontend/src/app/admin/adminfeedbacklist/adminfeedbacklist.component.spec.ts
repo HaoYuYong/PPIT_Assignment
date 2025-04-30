@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { StaffFeedbackComponent } from './staff-feedback.component';
+import { AdminfeedbacklistComponent } from './adminfeedbacklist.component';
 
-describe('StaffFeedbackComponent', () => {
-  let component: StaffFeedbackComponent;
-  let fixture: ComponentFixture<StaffFeedbackComponent>;
+describe('AdminfeedbacklistComponent', () => {
+  let component: AdminfeedbacklistComponent;
+  let fixture: ComponentFixture<AdminfeedbacklistComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ StaffFeedbackComponent ],
+      declarations: [ AdminfeedbacklistComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StaffFeedbackComponent);
+    fixture = TestBed.createComponent(AdminfeedbacklistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

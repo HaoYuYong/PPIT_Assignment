@@ -37,5 +37,10 @@ urlpatterns = [
     path('api/user/update-visibility/', views.update_visibility, name='update-visibility'),
     path('api/feedback/submit/', views.submit_feedback, name='submit-feedback'),
     path('api/feedback/user/', views.get_user_feedback, name='get-user-feedback'),
+    path('api/feedback/all/', views.get_all_feedback, name='get-all-feedback'),
+    path('api/feedback/staff/', views.get_staff_feedback, name='get-staff-feedback'),
+    path('api/feedback/assign/', views.assign_feedback, name='assign-feedback'),
+    path('api/feedback/reply/', views.submit_reply, name='submit-reply'),
+    path('api/staff/list/', views.get_staff_list, name='get-staff-list'),
 ]      
 

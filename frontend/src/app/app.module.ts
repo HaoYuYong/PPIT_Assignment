@@ -22,6 +22,10 @@ import { EmpseekComponent } from './company/empseek/empseek.component';
 import { EmpfavouriteComponent } from './company/empfavourite/empfavourite.component';
 import { CompanyprofileComponent } from './company/companyprofile/companyprofile.component';
 import { CompanyfeedbackComponent } from './company/companyfeedback/companyfeedback.component';
+// Admin 
+import { AdminfeedbacklistComponent } from './admin/adminfeedbacklist/adminfeedbacklist.component';
+// Staff
+import { StaffquestComponent } from './staff/staffquest/staffquest.component';
 
 // Import Angular Modules
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
@@ -52,7 +56,11 @@ import { HttpClientModule } from '@angular/common/http';
     EmpseekComponent,
     EmpfavouriteComponent,
     CompanyprofileComponent,
-    CompanyfeedbackComponent
+    CompanyfeedbackComponent,
+    //Admin
+    AdminfeedbacklistComponent,
+    //Staff
+    StaffquestComponent
   ],
   imports: [
     BrowserModule, 

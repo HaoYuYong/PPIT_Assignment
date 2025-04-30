@@ -1168,3 +1168,128 @@ class StaffDeleteView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
             return Response({"error": "Employer not found"}, status=status.HTTP_404_NOT_FOUND)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_all_feedback(request):
+    try:
+        feedbacks = Feedback.objects.all().order_by('-created_at')
+        data = [{
+            'bid': feedback.bid,
+            'uid': feedback.uid,
+            'f_title': feedback.f_title,
+            'f_description': feedback.f_description,
+            'status': feedback.status,
+            'reply': feedback.reply,
+            'staff_id': feedback.staff_id,
+            'created_at': feedback.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'updated_at': feedback.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+        } for feedback in feedbacks]
+        return JsonResponse(data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_staff_feedback(request):
+    staff_id = request.GET.get('staff_id')
+    if not staff_id:
+        return JsonResponse({'error': 'staff_id is required'}, status=400)
+    
+    try:
+        feedbacks = Feedback.objects.filter(staff_id=staff_id).order_by('-created_at')
+        data = [{
+            'bid': feedback.bid,
+            'uid': feedback.uid,
+            'f_title': feedback.f_title,
+            'f_description': feedback.f_description,
+            'status': feedback.status,
+            'reply': feedback.reply,
+            'staff_id': feedback.staff_id,
+            'created_at': feedback.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'updated_at': feedback.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+        } for feedback in feedbacks]
+        return JsonResponse(data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def assign_feedback(request):
+    try:
+        data = json.loads(request.body)
+        bid = data.get('bid')
+        staff_id = data.get('staff_id')
+        
+        if not bid or not staff_id:
+            return JsonResponse({'error': 'Both bid and staff_id are required'}, status=400)
+        
+        try:
+            feedback = Feedback.objects.get(bid=bid)
+            feedback.staff_id = staff_id
+            feedback.status = 'assigned'
+            feedback.save()
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Feedback assigned successfully',
+                'feedback': {
+                    'bid': feedback.bid,
+                    'staff_id': feedback.staff_id,
+                    'status': feedback.status
+                }
+            })
+            
+        except Feedback.DoesNotExist:
+            return JsonResponse({'error': 'Feedback not found'}, status=404)
+            
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def submit_reply(request):
+    try:
+        data = json.loads(request.body)
+        bid = data.get('bid')
+        reply = data.get('reply')
+        status = data.get('status', 'resolved')
+        
+        if not bid or not reply:
+            return JsonResponse({'error': 'Both bid and reply are required'}, status=400)
+        
+        try:
+            feedback = Feedback.objects.get(bid=bid)
+            feedback.reply = reply
+            feedback.status = status
+            feedback.save()
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Reply submitted successfully',
+                'feedback': {
+                    'bid': feedback.bid,
+                    'reply': feedback.reply,
+                    'status': feedback.status,
+                    'updated_at': feedback.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+                }
+            })
+            
+        except Feedback.DoesNotExist:
+            return JsonResponse({'error': 'Feedback not found'}, status=404)
+            
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_staff_list(request):
+    try:
+        staff_members = User.objects.filter(role='staff').values('uid', 'name')
+        return JsonResponse(list(staff_members), safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

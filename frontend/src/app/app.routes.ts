@@ -21,10 +21,10 @@ import { AdminStaffListComponent } from './admin/admin-staff-list/admin-stafflis
 import { AdminCompanyListComponent } from './admin/admin-company-list/admin-company-list.component';
 import { AdminUserListComponent } from './admin/admin-user-list/admin-user-list.component';
 import { AdminCreateStaffComponent } from './admin/admin-create-staff/admin-create-staff.component';
-
+import { AdminfeedbacklistComponent } from './admin/adminfeedbacklist/adminfeedbacklist.component';
+import { StaffquestComponent } from './staff/staffquest/staffquest.component';
 import { StaffUserListComponent } from './staff/staff-user-list/staff-user-list.component';
 import { StaffCompanyListComponent } from './staff/staff-company-list/staff-company-list.component';
-
 
 export const appRoutes: Routes = [
   // Default Route
@@ -55,7 +55,8 @@ export const appRoutes: Routes = [
   { path: 'admin-companyList', component: AdminCompanyListComponent },
   { path: 'admin-user-list', component: AdminUserListComponent },
   { path: 'admin-create-staff', component: AdminCreateStaffComponent },
-
+  { path: 'admin-feedback', component: AdminfeedbacklistComponent },
+  { path: 'staff-quest', component: StaffquestComponent },
   { path: 'staff-user-list', component: StaffUserListComponent },
   { path: 'staff-company-list', component: StaffCompanyListComponent },
 ];
