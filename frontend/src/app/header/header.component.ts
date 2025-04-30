@@ -2,6 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { addIcons } from 'ionicons';
+import {
+  homeOutline,
+  searchOutline,
+  heartOutline,
+  personOutline,
+  logInOutline,
+  chatboxOutline,
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +22,17 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   userRole: string | null = null;
+
+  constructor() {
+    addIcons({
+      homeOutline,
+      searchOutline,
+      heartOutline,
+      personOutline,
+      logInOutline,
+      chatboxOutline,
+    });
+  }
 
   ngOnInit() {
     this.checkLoginStatus();

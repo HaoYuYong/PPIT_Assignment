@@ -26,6 +26,7 @@ class User(models.Model):
     security_question = models.CharField(max_length=255, choices=SECURITY_QUESTION_CHOICES)
     security_answer = models.CharField(max_length=255)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='employee')
+    is_visible = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -299,3 +300,30 @@ class Favourite(models.Model):
 
     def __str__(self):
         return f"{self.user.name} favs {self.company.name}"
+    
+# Feedback Database table
+class Feedback(models.Model):
+    STATUS_CHOICES = [
+        ('new', 'New'),
+        ('assigned', 'Assigned'),
+        ('resolved', 'Resolved'),
+    ]
+
+    bid = models.AutoField(primary_key=True)
+    uid = models.CharField(max_length=10)  # User who submitted the feedback
+    f_title = models.CharField(max_length=255)
+    f_description = models.TextField()
+    staff_id = models.CharField(max_length=10, blank=True, null=True)  # Staff assigned (S0001 format)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='new')
+    reply = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'feedback'
+        verbose_name = 'Feedback'
+        verbose_name_plural = 'Feedbacks'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Feedback {self.bid}: {self.f_title}"

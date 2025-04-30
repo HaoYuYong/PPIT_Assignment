@@ -9,9 +9,10 @@ import { appRoutes } from './app.routes';
 import { HomeComponent } from './employee/employeehome/employeehome.component';
 import { JobseekComponent } from './employee/jobseek/jobseek.component';
 import { FavouriteComponent } from './employee/favourite/favourite.component';
-//import { EmployeeprofileComponent } from './employee/employeeprofile/employeeprofile.component';
+import { EmployeeprofileComponent } from './employee/employeeprofile/employeeprofile.component';
+import { EmployeefeedbackComponent } from './employee/employeefeedback/employeefeedback.component';
 //General
-import { HeaderComponent } from './header/header.component'; // Import HeaderComponent
+import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LandingComponent } from './landing/landing.component';
@@ -20,9 +21,10 @@ import { CompanyhomeComponent } from './company/companyhome/companyhome.componen
 import { EmpseekComponent } from './company/empseek/empseek.component';
 import { EmpfavouriteComponent } from './company/empfavourite/empfavourite.component';
 import { CompanyprofileComponent } from './company/companyprofile/companyprofile.component';
+import { CompanyfeedbackComponent } from './company/companyfeedback/companyfeedback.component';
 
 // Import Angular Modules
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms'; // Add this import
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 // Import services
 import { RegisterService } from './service/register.service';
@@ -30,30 +32,33 @@ import { provideHttpClient } from '@angular/common/http';
 //HTTP Client
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
+    //General
+    LandingComponent,
     AppComponent,
     HeaderComponent, 
-    HomeComponent,
-    JobseekComponent,
-    CreatecvComponent,
-    //ProfileComponent,
-    FavouriteComponent,
-    EmployeeprofileComponent,
     LoginComponent,
     RegisterComponent,
+    //Employee
+    HomeComponent,
+    JobseekComponent,
+    FavouriteComponent,
+    EmployeeprofileComponent,
+    EmployeefeedbackComponent,
+    //Company
     CompanyhomeComponent,
     EmpseekComponent,
     EmpfavouriteComponent,
     CompanyprofileComponent,
-    LandingComponent
+    CompanyfeedbackComponent
   ],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
-    // AppRoutingModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule, // Add FormsModule
+    FormsModule, 
     ReactiveFormsModule,
     HttpClientModule
     ],

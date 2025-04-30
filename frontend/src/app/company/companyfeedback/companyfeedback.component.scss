@@ -1,0 +1,254 @@
+/* Importing Google Fonts - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+/* Apply to the host component */
+:host {
+  font-family: "Poppins", sans-serif;
+  display: block;
+  height: 100%;
+
+  ion-content {
+    --background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+}
+
+/* Container styles */
+.container {
+  max-width: 600px;
+  width: calc(100% - 40px); // Subtract padding from total width
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  position: relative;
+
+  /* Title styles */
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    position: relative;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+      font-weight: normal;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -8px;
+      height: 3px;
+      width: 30px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    }
+  }
+
+  /* Form styles */
+  form {
+    ion-item {
+      --background: transparent;
+      --border-color: #e0e0e0;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 15px;
+      color: black;
+
+      ion-label[position="stacked"] {
+        color: #555 !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        font-size: small;
+      }
+
+      ion-input, ion-textarea {
+        --color: #333;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        --padding-top: 8px;
+        --padding-bottom: 8px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-top: 8px;
+      }
+    }
+  }
+
+  /* Action buttons */
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+
+    ion-button {
+      flex: 1;
+      --border-radius: 8px;
+      --padding-top: 15px;
+      --padding-bottom: 15px;
+      font-weight: 500;
+      --background: #9b59b6;
+      --background-activated: #8e44ad;
+      --background-focused: #8e44ad;
+      --background-hover: #8e44ad;
+    }
+  }
+
+  /* Feedback list styles */
+  .feedback-list {
+    margin-top: 20px;
+
+    .feedback-item {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+      .feedback-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+
+        h3 {
+          margin: 0;
+          font-size: 1.1rem;
+          color: #333;
+        }
+
+        .status-badge {
+          padding: 4px 8px;
+          border-radius: 12px;
+          font-size: 0.8rem;
+          font-weight: 500;
+          text-transform: capitalize;
+
+          &.status-new {
+            background-color: #3498db;
+            color: white;
+          }
+
+          &.status-assigned {
+            background-color: #f39c12;
+            color: white;
+          }
+
+          &.status-resolved {
+            background-color: #2ecc71;
+            color: white;
+          }
+        }
+      }
+
+      .feedback-description {
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+
+      .feedback-meta {
+        font-size: 0.8rem;
+        color: #888;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .staff-reply {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e0e0e0;
+
+        .reply-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8px;
+
+          ion-icon {
+            margin-right: 8px;
+            color: #9b59b6;
+            font-size: 1.2rem;
+          }
+
+          strong {
+            color: #333;
+          }
+        }
+
+        p {
+          color: #555;
+          line-height: 1.5;
+          margin-left: 28px;
+        }
+
+        .reply-date {
+          font-size: 0.8rem;
+          color: #888;
+          text-align: right;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  :host {
+    ion-content {
+      --padding-start: 15px;
+      --padding-end: 15px;
+      --padding-top: 15px;
+      --padding-bottom: 15px;
+    }
+  }
+
+  .container {
+    width: calc(100% - 30px);
+    padding: 20px;
+    margin: 10px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    ion-content {
+      --padding-start: 10px;
+      --padding-end: 10px;
+      --padding-top: 10px;
+      --padding-bottom: 10px;
+    }
+  }
+
+  .container {
+    width: calc(100% - 20px);
+    padding: 15px;
+    margin: 10px auto;
+
+    .title {
+      font-size: 20px;
+    }
+  }
+}

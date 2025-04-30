@@ -1,0 +1,76 @@
+<ion-content>
+  <div class="container">
+    <div class="title">
+      Feedback Form
+      <div class="subtitle">Share your thoughts and suggestions with us</div>
+    </div>
+
+    <form (ngSubmit)="submitFeedback()" #feedbackForm="ngForm">
+      <ion-item>
+        <ion-label position="stacked">Title</ion-label>
+        <ion-input 
+          type="text" 
+          name="title" 
+          [(ngModel)]="feedback.title" 
+          required
+          placeholder="Enter feedback title">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Description</ion-label>
+        <ion-textarea 
+          name="description" 
+          [(ngModel)]="feedback.description" 
+          required
+          rows="6"
+          placeholder="Describe your feedback in detail">
+        </ion-textarea>
+      </ion-item>
+
+      <div class="action-buttons">
+        <ion-button 
+          type="submit" 
+          expand="block" 
+          [disabled]="!feedbackForm.valid || isLoading">
+          <ion-spinner *ngIf="isLoading"></ion-spinner>
+          <span *ngIf="!isLoading">Submit Feedback</span>
+        </ion-button>
+      </div>
+    </form>
+
+    <!-- Feedback History Section -->
+    <div class="title" style="margin-top: 40px;">
+      Your Feedback History
+    </div>
+
+    <div *ngIf="feedbacks.length === 0" class="empty-state">
+      You haven't submitted any feedback yet.
+    </div>
+
+    <div class="feedback-list">
+      <div class="feedback-item" *ngFor="let item of feedbacks">
+        <div class="feedback-header">
+          <h3>{{ item.f_title }}</h3>
+          <span class="status-badge" [ngClass]="getStatusClass(item.status)">
+            {{ item.status | titlecase }}
+          </span>
+        </div>
+        <p class="feedback-description">{{ item.f_description }}</p>
+        <div class="feedback-meta">
+          <span class="date">{{ item.created_at | date:'mediumDate' }}</span>
+        </div>
+        
+        <!-- Staff reply section -->
+        <div *ngIf="item.reply" class="staff-reply">
+          <div class="reply-header">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <strong>Staff Response ({{ item.staff_id }})</strong>
+          </div>
+          <p>{{ item.reply }}</p>
+          <div class="reply-date">Updated: {{ item.updated_at | date:'medium' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

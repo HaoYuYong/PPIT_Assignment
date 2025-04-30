@@ -4,12 +4,14 @@ import { HomeComponent } from './employee/employeehome/employeehome.component';
 import { JobseekComponent } from './employee/jobseek/jobseek.component';
 import { FavouriteComponent } from './employee/favourite/favourite.component';
 import { EmployeeprofileComponent } from './employee/employeeprofile/employeeprofile.component';
+import { EmployeefeedbackComponent } from './employee/employeefeedback/employeefeedback.component';
 //Company
 import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
 import { EmpseekComponent } from './company/empseek/empseek.component';
 import { EmpfavouriteComponent } from './company/empfavourite/empfavourite.component';
 import { CompanyprofileComponent } from './company/companyprofile/companyprofile.component';
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
+import { CompanyfeedbackComponent } from './company/companyfeedback/companyfeedback.component';
 //General
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -24,6 +26,7 @@ export const appRoutes: Routes = [
   { path: 'emp-jobseek', component: JobseekComponent },
   { path: 'emp-favourite', component: FavouriteComponent },
   { path: 'emp-profile', component: EmployeeprofileComponent },
+  { path: 'emp-feedback', component: EmployeefeedbackComponent },
 
   //General
   { path: 'login', component: LoginComponent },
@@ -36,4 +39,5 @@ export const appRoutes: Routes = [
   { path: 'comp-empseek', component: EmpseekComponent },
   { path: 'comp-profile', component: CompanyprofileComponent },
   { path: 'comp-empfavourite', component: EmpfavouriteComponent},
+  { path: 'comp-feedback', component: CompanyfeedbackComponent },
 ];
