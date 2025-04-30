@@ -1,0 +1,121 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Feedback Cases</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="main-content">
+    <!-- Left Column - Feedback List -->
+    <div class="feedback-list-column">
+      <ion-list>
+        <ion-item 
+          *ngFor="let feedback of feedbacks" 
+          (click)="selectFeedback(feedback)"
+          [class.selected]="selectedFeedback?.bid === feedback.bid">
+          <ion-icon slot="start" name="document-text-outline"></ion-icon>
+          <ion-label>
+            <h2>{{ feedback.f_title }}</h2>
+            <p>Status: {{ feedback.status | titlecase }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <!-- Empty State -->
+      <div *ngIf="!isLoading && feedbacks.length === 0" class="no-selection">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <h3>No Feedback Cases Assigned</h3>
+        <p>You don't have any assigned feedback cases yet.</p>
+      </div>
+    </div>
+
+    <!-- Right Column - Details View -->
+    <div class="details-column">
+      <div *ngIf="!selectedFeedback" class="no-selection">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <h3>Select Feedback</h3>
+        <p>Choose a feedback case from the list to view details</p>
+      </div>
+
+      <div *ngIf="selectedFeedback" class="feedback-details">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <div class="title-row">
+                <span class="feedback-title">{{ selectedFeedback.f_title }}</span>
+              </div>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="section">
+              <ion-list-header>
+                <ion-label>Feedback Details</ion-label>
+              </ion-list-header>
+              
+              <div class="detail-row">
+                <strong>Status:</strong> {{ selectedFeedback.status | titlecase }}
+              </div>
+              
+              <div class="detail-row">
+                <strong>Submitted by:</strong> {{ selectedFeedback.uid }}
+              </div>
+              
+              <div class="detail-row">
+                <strong>Submitted on:</strong> {{ selectedFeedback.created_at | date:'medium' }}
+              </div>
+            </div>
+
+            <div class="section">
+              <ion-list-header>
+                <ion-label>Description</ion-label>
+              </ion-list-header>
+              <div class="description-content">{{ selectedFeedback.f_description }}</div>
+            </div>
+            
+            <!-- Reply Section - Matches About Me section style -->
+            <div class="container about-me-container" *ngIf="selectedFeedback.status !== 'resolved'">
+              <div class="title">Your Response</div>
+              
+              <div class="about-me-content">
+                <div class="about-me-edit">
+                  <ion-textarea
+                    [(ngModel)]="replyText"
+                    placeholder="Enter your detailed response here..."
+                    autoGrow="true"
+                    rows="6"
+                    class="about-me-textarea"
+                  ></ion-textarea>
+                </div>
+                
+                <div class="action-buttons">
+                  <ion-button 
+                    expand="block" 
+                    fill="solid" 
+                    color="success"
+                    (click)="submitReply()"
+                    [disabled]="!replyText || isSubmitting">
+                    <ion-spinner *ngIf="isSubmitting"></ion-spinner>
+                    <span *ngIf="!isSubmitting">Submit Reply</span>
+                  </ion-button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Previous Reply Section -->
+            <div class="container about-me-container" *ngIf="selectedFeedback.reply">
+              <div class="title">Your Response</div>
+              
+              <div class="about-me-content">
+                <div class="about-me-view">
+                  <p class="about-me-text">{{ selectedFeedback.reply }}</p>
+                  <div class="reply-date">Replied on: {{ selectedFeedback.updated_at | date:'medium' }}</div>
+                </div>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>
