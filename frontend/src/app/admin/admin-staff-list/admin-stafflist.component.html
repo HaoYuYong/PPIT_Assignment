@@ -1,0 +1,25 @@
+<ion-content>
+  <h2 style="text-align: center;">Staff List</h2>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col><strong>Name</strong></ion-col>
+      <ion-col><strong>Email</strong></ion-col>
+      <ion-col><strong>Address</strong></ion-col>
+      <ion-col><strong>Phone</strong></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let s of staff">
+      <ion-col>{{ s.name }}</ion-col>
+      <ion-col>{{ s.email }}</ion-col>
+      <ion-col>{{ s.address }}</ion-col>
+      <ion-col>{{ s.phone }}</ion-col>
+      <ion-col>
+        <ion-button color="danger" (click)="confirmDelete(s)">
+          Delete
+      </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

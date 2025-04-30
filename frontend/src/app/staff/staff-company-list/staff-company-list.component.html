@@ -1,0 +1,25 @@
+<ion-content>
+  <h1 style="text-align: center;">Employer List</h1>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col><strong>Name</strong></ion-col>
+      <ion-col><strong>Email</strong></ion-col>
+      <ion-col><strong>Address</strong></ion-col>
+      <ion-col><strong>Phone</strong></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let employer of employers">
+      <ion-col>{{ employer.name }}</ion-col>
+      <ion-col>{{ employer.email }}</ion-col>
+      <ion-col>{{ employer.address }}</ion-col>
+      <ion-col>{{ employer.phone }}</ion-col>
+      <ion-col>
+      <ion-button color="danger" (click)="confirmDelete(employer)">
+          Delete
+      </ion-button>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

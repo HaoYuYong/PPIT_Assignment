@@ -17,6 +17,7 @@ from rest_framework import status
 import google.generativeai as genai
 import os
 from django.core.mail import send_mail
+from .serializers import UserSerializer
 
 
 @csrf_exempt
@@ -1079,3 +1080,51 @@ def get_user_feedback(request):
         return JsonResponse(data, safe=False)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+    
+#EmployeeList
+class EmployeeListView(APIView):
+    def get(self, request):
+        employees = User.objects.filter(role='employee')
+        serializer = UserSerializer(employees, many=True)
+        return Response(serializer.data)
+    
+class EmployeeDeleteView(APIView):
+    def delete(self, request, pk):
+        try:
+            employee = User.objects.get(pk=pk, role='employee')
+            employee.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"error": "Employee not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+#EmployerList
+class EmployerListView(APIView):
+    def get(self, request):
+        employer = User.objects.filter(role='company')
+        serializer = UserSerializer(employer, many=True)
+        return Response(serializer.data)
+        
+class EmployerDeleteView(APIView):
+    def delete(self, request, pk):
+        try:
+            employer = User.objects.get(pk=pk, role='company')
+            employer.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"error": "Employer not found"}, status=status.HTTP_404_NOT_FOUND)
+
+#StaffList
+class StaffListView(APIView):
+    def get(self, request):
+        staff = User.objects.filter(role='staff')
+        serializer = UserSerializer(staff, many=True)
+        return Response(serializer.data)
+    
+class StaffDeleteView(APIView):
+    def delete(self, request, pk):
+        try:
+            staff = User.objects.get(pk=pk, role='staff')
+            staff.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"error": "Employer not found"}, status=status.HTTP_404_NOT_FOUND)

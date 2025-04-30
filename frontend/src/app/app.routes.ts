@@ -16,6 +16,14 @@ import { CompanyfeedbackComponent } from './company/companyfeedback/companyfeedb
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LandingComponent } from './landing/landing.component';
+//Staff and Admin
+import { AdminStaffListComponent } from './admin/admin-staff-list/admin-stafflist.component';
+import { AdminCompanyListComponent } from './admin/admin-company-list/admin-company-list.component';
+import { AdminUserListComponent } from './admin/admin-user-list/admin-user-list.component';
+//Company list Staff list Feedback list
+import { StaffUserListComponent } from './staff/staff-user-list/staff-user-list.component';
+import { StaffCompanyListComponent } from './staff/staff-company-list/staff-company-list.component';
+
 
 export const appRoutes: Routes = [
   // Default Route
@@ -40,4 +48,12 @@ export const appRoutes: Routes = [
   { path: 'comp-profile', component: CompanyprofileComponent },
   { path: 'comp-empfavourite', component: EmpfavouriteComponent},
   { path: 'comp-feedback', component: CompanyfeedbackComponent },
+
+    //Staff and Admin
+  { path: 'admin-staff-list', component: AdminStaffListComponent },
+  { path: 'admin-companyList', component: AdminCompanyListComponent },
+  { path: 'admin-user-list', component: AdminUserListComponent },
+
+  { path: 'staff-user-list', component: StaffUserListComponent },
+  { path: 'staff-company-list', component: StaffCompanyListComponent },
 ];
