@@ -106,10 +106,10 @@ export class LoginComponent {
       window.location.href = '/emp-home';
     }
     else if(user.role == 'admin'){
-      window.location.href = '/admin-empList';
+      window.location.href = '/admin-staff-list';
     }
     else if(user.role == 'staff'){
-      window.location.href = 'staff-userList';
+      window.location.href = 'staff-user-list';
     }
   }
 

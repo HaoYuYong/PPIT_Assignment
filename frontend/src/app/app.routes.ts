@@ -20,7 +20,8 @@ import { LandingComponent } from './landing/landing.component';
 import { AdminStaffListComponent } from './admin/admin-staff-list/admin-stafflist.component';
 import { AdminCompanyListComponent } from './admin/admin-company-list/admin-company-list.component';
 import { AdminUserListComponent } from './admin/admin-user-list/admin-user-list.component';
-//Company list Staff list Feedback list
+import { AdminCreateStaffComponent } from './admin/admin-create-staff/admin-create-staff.component';
+
 import { StaffUserListComponent } from './staff/staff-user-list/staff-user-list.component';
 import { StaffCompanyListComponent } from './staff/staff-company-list/staff-company-list.component';
 
@@ -49,10 +50,11 @@ export const appRoutes: Routes = [
   { path: 'comp-empfavourite', component: EmpfavouriteComponent},
   { path: 'comp-feedback', component: CompanyfeedbackComponent },
 
-    //Staff and Admin
+  //Staff and Admin
   { path: 'admin-staff-list', component: AdminStaffListComponent },
   { path: 'admin-companyList', component: AdminCompanyListComponent },
   { path: 'admin-user-list', component: AdminUserListComponent },
+  { path: 'admin-create-staff', component: AdminCreateStaffComponent },
 
   { path: 'staff-user-list', component: StaffUserListComponent },
   { path: 'staff-company-list', component: StaffCompanyListComponent },

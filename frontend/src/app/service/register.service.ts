@@ -6,7 +6,8 @@ import { Observable, catchError, map, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterService {
-  private apiUrl = 'http://localhost:8000/register/';
+  private apiUrl1 = 'http://localhost:8000/register-user/';
+  private apiUrl2 = 'http://localhost:8000/register-staff/';
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +22,31 @@ export class RegisterService {
       dob: this.formatDate(userData.dob)
     };
 
-    return this.http.post<any>(this.apiUrl, formattedData, { headers }).pipe(
+    return this.http.post<any>(this.apiUrl1, formattedData, { headers }).pipe(
+    //   catchError(this.handleError)
+    // );
+      //Pop Up message
+      map(response => ({
+        success: true,
+        message: 'Registration successful!',
+        uid: response.uid
+      })),
+      catchError(this.handleError)
+    );
+  }
+
+  registerStaff(userData: any): Observable<{ success: boolean, message: string, uid?: string }> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    // Format date to YYYY-MM-DD
+    const formattedData = {
+      ...userData,
+      dob: this.formatDate(userData.dob)
+    };
+
+    return this.http.post<any>(this.apiUrl2, formattedData, { headers }).pipe(
     //   catchError(this.handleError)
     // );
       //Pop Up message

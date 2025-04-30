@@ -1,6 +1,6 @@
 <ion-content class="ion-padding" [class.ion-content-bg]="true">
   <div class="container">
-    <div class="title">Registration</div>
+    <div class="title">Add Staff</div>
     <div class="content">
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <!-- Name -->
@@ -118,12 +118,8 @@
           <ion-radio-group formControlName="role">
             <div class="role-options">
               <ion-item lines="none">
-                <ion-label>Employee</ion-label>
-                <ion-radio slot="start" value="employee"></ion-radio>
-              </ion-item>
-              <ion-item lines="none">
-                <ion-label>Company</ion-label>
-                <ion-radio slot="start" value="company"></ion-radio>
+                <ion-label>Staff</ion-label>
+                <ion-radio slot="start" value="staff"></ion-radio>
               </ion-item>
             </div>
           </ion-radio-group>
@@ -142,10 +138,6 @@
           <ion-spinner *ngIf="isSubmitting" name="crescent"></ion-spinner>
           <span *ngIf="!isSubmitting">Register</span>
         </ion-button>
-
-        <div class="login-link">
-          <p>Already have an account? <a routerLink="/login">Login NOW!</a></p>
-        </div>
       </form>
 
       <!-- Error Alert -->

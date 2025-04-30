@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import chat_view
-from .views import forgot_password, EmployeeListView, EmployerListView, EmployeeDeleteView, EmployerDeleteView, StaffListView, StaffDeleteView
+from .views import registerStaff, forgot_password, EmployeeListView, EmployerListView, EmployeeDeleteView, EmployerDeleteView, StaffListView, StaffDeleteView
 
 urlpatterns = [
     path('chat/', chat_view),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('api/employee/<int:pk>/delete/', EmployeeDeleteView.as_view(), name='employee-delete'),
     path('api/employer/<int:pk>/delete/', EmployerDeleteView.as_view(), name='employer-delete'),
     path('api/staff/<int:pk>/delete/', StaffDeleteView.as_view(), name='staff-delete'),
-]
+    path('register-staff/', registerStaff, name='register-staff'),
+]   
