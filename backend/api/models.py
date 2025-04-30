@@ -7,8 +7,6 @@ class User(models.Model):
     ROLE_CHOICES = [
         ('employee', 'Employee'),
         ('company', 'Company'),
-        ('admin', 'Admin'),
-        ('staff', 'Staff')
     ]
 
     SECURITY_QUESTION_CHOICES = [

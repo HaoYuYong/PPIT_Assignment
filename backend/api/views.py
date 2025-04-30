@@ -8,14 +8,15 @@ import sqlite3
 from django.db import connection
 from django.db import IntegrityError
 # from django.core.exceptions import ObjectDoesNotExist
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+# from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import google.generativeai as genai
 import os
 from django.core.mail import send_mail
-from django.contrib.auth import get_user_model
-from .serializers import UserSerializer
 
 
 @csrf_exempt
@@ -958,41 +959,27 @@ def chat_view(request):
 
     return JsonResponse({'error': 'Only POST allowed'}, status=405)
 
-#Email
 @csrf_exempt
 def forgot_password(request):
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            email = data.get('email')
+        data = json.loads(request.body)
+        email = data.get('email')
 
-            if not email:
-                return JsonResponse({'error': 'Email is required.'}, status=400)
-            send_mail(
-                subject='Password Reset Request',
-                message=f'Hello, click here to reset your password.',
-                from_email='jobconnectstaff@gmail.com',
-                recipient_list=[email],
-                fail_silently=False,
-            )
+        if not email:
+            return JsonResponse({'error': 'Email required'}, status=400)
+        
+        #Check if its in our database
 
-            return JsonResponse({'success': True})
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+        #send email
 
-    return JsonResponse({'error': 'Invalid request method.'}, status=405)
+        send_mail(
+            subject='Password Reset Request',
+            message='test123',
+            from_email='jobconnectstaff@gmail.com',
+            recipient_list=[email],
+            fail_silently=False,
+        )
 
-#EmployeeList
-class EmployeeListView(APIView):
-    def get(self, request):
-        employees = User.objects.filter(role='employee')
-        serializer = UserSerializer(employees, many=True)
-        return Response(serializer.data)
+        return JsonResponse({'success': True})
     
-#EmployerList
-class EmployerListView(APIView):
-    def get(self, request):
-        employer = User.objects.filter(role='employer')
-        serializer = UserSerializer(employer, many=True)
-        return Response(serializer.data)
-
+    return JsonResponse({'error': 'Invalid request'}, status=400)

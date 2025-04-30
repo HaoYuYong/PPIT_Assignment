@@ -32,18 +32,5 @@
       <ion-button routerLink="/comp-empfavourite">Favourite</ion-button>
       <ion-button routerLink="/comp-profile">Profile</ion-button>
     }
-
-    <!-- Admin Links -->
-    @if (userRole == 'admin'){
-      <ion-button routerLink="admin-empList">Staff List</ion-button>
-      <ion-button routerLink="admin-userList">User List</ion-button>
-      <ion-button routerLink="admin-feedback">User Feedback</ion-button>
-    }
-
-    <!-- Staff Links -->
-    @if (userRole == 'staff'){
-      <ion-button routerLink="staff-userList">User List</ion-button>
-      <ion-button routerLink="staff-feedback">User Feedback</ion-button>
-    }
   </ion-buttons>
 </ion-toolbar>
