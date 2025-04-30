@@ -1,3 +1,27 @@
+ion-content {
+  --background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  overflow: auto;
+  align-items: center;
+}
+
+.title{
+  color: rgb(0, 0, 0);
+}
+
+.about-us, .why-us {
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-color: #000000;
+  border: 1px;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+
 .chat-wrapper {
     display: flex;
     flex-direction: column;
@@ -10,8 +34,6 @@
   
   .chat-box {
     flex: 1;
-    overflow-y: auto;
-    padding: 1rem;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #ffffff;
@@ -28,7 +50,7 @@
   }
   
   .user-msg {
-    background-color: #dcf8c6;
+    background-color: #a8eb75;
     align-self: flex-end;
     text-align: right;
     margin-left: auto;
@@ -40,16 +62,11 @@
   
   .ai-msg {
     background-color: #ffffff;
-    align-self: flex-start;
-    margin-right: auto;
-    color: #000000;
   }
   
   .sender {
-    font-size: 0.75rem;
     font-weight: bold;
-    margin-bottom: 0.25rem;
-    color: #555;
+    color: #000000;
   }
   
   .input-area {
@@ -68,7 +85,7 @@
   button {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    background-color: #007bff;
+    background-color: hsla(290, 97%, 71%, 0.418);
     color: white;
     border: none;
     border-radius: 8px;

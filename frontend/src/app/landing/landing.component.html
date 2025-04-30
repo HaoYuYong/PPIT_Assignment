@@ -1,27 +1,57 @@
-<h1 style="text-align: center;">Talk to our AI assistant</h1>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" class="left-column">
+        <div class="about-us">
+          <h2 class="title"><strong>About Us</strong></h2>
+          <p>
+            At <strong>JobConnect</strong>, we’re bridging the gap between opportunity and talent.
+            Our mission is simple: connect job seekers with the right employers, and help companies find the perfect candidates.
+            Whether you're launching your career or hiring top talent, JobConnect makes it simple, smart, and seamless.
+          </p>
+        </div>
 
-<div class="chat-wrapper">
-  <div class="chat-box">
-    <div *ngFor="let msg of chatLog" [ngClass]="{'user-msg': msg.from === 'You', 'ai-msg': msg.from === 'AI'}" class="chat-bubble">
-      <div class="sender">{{ msg.from }}</div>
-      <div [ngClass]="msg.from === 'AI' ? 'ai-message-text' : 'user-message-text'">{{ msg.text }}</div>
-    </div>
+        <div class="why-us" style="margin-top: 2rem;">
+          <h2 class="title"><strong>Why Choose Us?</strong></h2>
+          <p>
+            We offer a smart, user-friendly platform where job seekers find meaningful work
+            and employers connect with top-tier talent — fast, fair, and efficiently.
+            Trust, transparency, and technology make JobConnect your go-to career companion.
+          </p>
+        </div>
+      </ion-col>
 
-    <!-- Waiting for text to generate -->
-    <div *ngIf="loading" class="chat-bubble ai-msg">
-      <div class="sender">Chat-Bot Assistant</div>
-      <div class="ai-message-text loading-text">Typing...</div>
-    </div>
-  </div>
+      <ion-col size="12" size-md="6" class="chat-column">
+        <h1 style="text-align: center;">Talk to our AI assistant</h1>
+        <div class="chat-wrapper">
+          <div class="chat-box">
+            <div *ngFor="let msg of chatLog"
+                 [ngClass]="{'user-msg': msg.from === 'You', 'ai-msg': msg.from === 'AI'}"
+                 class="chat-bubble">
+              <div class="sender">{{ msg.from }}</div>
+              <div [ngClass]="msg.from === 'AI' ? 'ai-message-text' : 'user-message-text'">
+                {{ msg.text }}
+              </div>
+            </div>
 
-  <div class="input-area">
-    <input
-      type="text"
-      [(ngModel)]="message"
-      (keyup.enter)="send()"
-      [disabled]="loading"
-      placeholder="Ask something..."
-    />
-    <button (click)="send()" [disabled]="loading || !message.trim()">Send</button>
-  </div>
-</div>
+            <div *ngIf="loading" class="chat-bubble ai-msg">
+              <div class="sender">Chat-Bot Assistant</div>
+              <div class="ai-message-text loading-text">Typing...</div>
+            </div>
+          </div>
+
+          <div class="input-area">
+            <input
+              type="text"
+              [(ngModel)]="message"
+              (keyup.enter)="send()"
+              [disabled]="loading"
+              placeholder="Ask something..."
+            />
+            <button (click)="send()" [disabled]="loading || !message.trim()">Send</button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
