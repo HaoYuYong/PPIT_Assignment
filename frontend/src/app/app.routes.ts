@@ -9,14 +9,21 @@ import { CompanyhomeComponent } from './company/companyhome/companyhome.componen
 import { EmpseekComponent } from './company/empseek/empseek.component';
 import { EmpfavouriteComponent } from './company/empfavourite/empfavourite.component';
 import { CompanyprofileComponent } from './company/companyprofile/companyprofile.component';
-import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 //General
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LandingComponent } from './landing/landing.component';
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
+//Staff and Admin
+import { AdminEmplistComponent} from './admin/admin-emplist/admin-emplist.component';
+import { AdminUserListComponent } from './admin/admin-user-list/admin-user-list.component';
+import { AdminUserFeedbackComponent } from './admin/admin-user-feedback/admin-user-feedback.component';
+import { StaffUserListComponent } from './staff/staff-user-list/staff-user-list.component';
+import { StaffFeedbackComponent } from './staff/staff-feedback/staff-feedback.component';
+
 
 export const appRoutes: Routes = [
-  // Default Route
+  //Default Route
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
 
   //Employee
@@ -36,4 +43,11 @@ export const appRoutes: Routes = [
   { path: 'comp-empseek', component: EmpseekComponent },
   { path: 'comp-profile', component: CompanyprofileComponent },
   { path: 'comp-empfavourite', component: EmpfavouriteComponent},
+  
+  //Staff and Admin
+  { path: 'admin-empList', component: AdminEmplistComponent },
+  { path: 'admin-userList', component: AdminUserListComponent },
+  { path: 'admin-feedback', component: AdminUserFeedbackComponent },
+  { path: 'staff-userList', component: StaffUserListComponent },
+  { path: 'staff-feedback', component: StaffFeedbackComponent },
 ];

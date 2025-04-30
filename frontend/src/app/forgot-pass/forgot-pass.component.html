@@ -1,26 +1,31 @@
 <ion-content class="ion-padding" [class.ion-content-bg]="true">
     <div class="container">
-        <div class="title" style="text-align: center;">
-            <h1>Forgot Password</h1>
-            <p>Enter your email address to receive instructions on how to reset your website</p>
-        </div>
-        
-    <div class="form-card">
+      <div class="title" style="text-align: center;">
+        <h1>Forgot Password</h1>
+        <p>Enter your email address to receive instructions on how to reset your password</p>
+      </div>
+  
+      <div class="form-card">
         <form (ngSubmit)="submitForm()" #forgotForm="ngForm">
-            <ion-item>
-                <ion-label position="floating" >Email</ion-label>
-                <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
-            </ion-item>
-            <ion-button expand="block" type="submit" [disabled]="forgotForm.invalid || loading">
-                {{loading ? 'Sending... ' : 'Send Reset Link'}}
-            </ion-button>
-    
-            <div *ngIf="message" class="message">{{ message }}</div>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-button expand="block" type="submit" [disabled]="forgotForm.invalid || loading">
+            {{ loading ? 'Sending...' : 'Send Reset Link' }}
+          </ion-button>
         </form>
-        <div class="content">
-
-        </div>
+  
+        <div *ngIf="message" class="message">{{ message }}</div>
+  
+        <ion-button *ngIf="showProceedButton" expand="block" (click)="goToLoginPage()">
+          Go back toi login
+        </ion-button>
+      </div>
     </div>
-
-    </div>
-</ion-content>
+  </ion-content>

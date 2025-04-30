@@ -1,38 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { IonContent, IonButton, IonInput, IonItem, IonLabel } from '@ionic/angular/standalone';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonContent, IonButton, IonInput, IonItem, IonLabel } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-forgot-pass',
   templateUrl: './forgot-pass.component.html',
   styleUrls: ['./forgot-pass.component.scss'],
-  imports: [IonContent, FormsModule, IonItem, IonButton, IonLabel, IonInput, CommonModule]
+  standalone: true,
+  imports: [CommonModule, FormsModule, IonContent, IonButton, IonInput, IonItem, IonLabel],
 })
-export class ForgotPassComponent{
-
+export class ForgotPassComponent {
   email: string = '';
   message: string = '';
   loading: boolean = false;
+  showProceedButton: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
-  submitForm(){
-    if(!this.email) return;
-    
+  submitForm() {
+    if (!this.email) return;
+  
     this.loading = true;
-    this.http.post("http://localhost:8000/api/forgot-password/", { email: this.email})
-    .subscribe({
+    this.message = '';
+  
+    this.http.post('http://localhost:8000/api/forgot-password/', {
+      email: this.email
+    }).subscribe({
       next: (response: any) => {
-        this.message = 'Reset link sent! Check your email.';
+        this.message = 'Check your email.';
         this.loading = false;
+        this.showProceedButton = true;
       },
       error: (error) => {
-        this.message = 'Something went wrong. Please try again.';
+        if (error.error && error.error.error) {
+          this.message = error.error.error;
+        } else {
+          this.message = 'Something went wrong. Please try again.';
+        }
         this.loading = false;
       }
     });
-  }
+  }   
 
+  goToLoginPage() {
+    this.router.navigate(['/login'], { queryParams: { email: this.email } });
+  }
 }

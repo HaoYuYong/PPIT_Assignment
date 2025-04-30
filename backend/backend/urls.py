@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from api.views import register,login
 from api import views
-from api.views import forgot_password
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('api/get_profile/', views.get_profile, name='get_profile'),
     path('api/', include('api.urls')),
+    path('', include('api.urls')),
     path('api/profile/update/', views.update_profile, name='update-profile'),
     path('api/job-positions/', views.create_job_position, name='create-job-position'),
     path('api/job-positions/list/', views.get_job_positions, name='get-job-positions'),

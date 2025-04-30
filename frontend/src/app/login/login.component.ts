@@ -96,10 +96,21 @@ export class LoginComponent {
     });
     await alert.present();
     
-    // Navigate after alert is dismissed
+    //Navigate after alert is dismissed
     const { role } = await alert.onDidDismiss();
     const user = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
-    window.location.href = user.role === 'company' ? '/comp-home' : '/emp-home';
+    if(user.role == 'company'){
+      window.location.href = '/comp-home';
+    }
+    else if(user.role == 'employee'){
+      window.location.href = '/emp-home';
+    }
+    else if(user.role == 'admin'){
+      window.location.href = '/admin-empList';
+    }
+    else if(user.role == 'staff'){
+      window.location.href = 'staff-userList';
+    }
   }
 
   private markAllAsTouched() {
