@@ -35,5 +35,7 @@ urlpatterns = [
     path('api/empfavourites/', views.get_employee_favourites, name='get-employee-favourites'),
     path('api/empfavourites/toggle/', views.toggle_employee_favourite, name='toggle-employee-favourite'),
     path('api/user/update-visibility/', views.update_visibility, name='update-visibility'),
+    path('api/feedback/submit/', views.submit_feedback, name='submit-feedback'),
+    path('api/feedback/user/', views.get_user_feedback, name='get-user-feedback'),
 ]      
 

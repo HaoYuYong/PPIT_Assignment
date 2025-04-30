@@ -20,6 +20,7 @@ import { CompanyhomeComponent } from './company/companyhome/companyhome.componen
 import { EmpseekComponent } from './company/empseek/empseek.component';
 import { EmpfavouriteComponent } from './company/empfavourite/empfavourite.component';
 import { CompanyprofileComponent } from './company/companyprofile/companyprofile.component';
+import { CompanyfeedbackComponent } from './company/companyfeedback/companyfeedback.component';
 
 // Import Angular Modules
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms'; // Add this import
@@ -44,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     EmpseekComponent,
     EmpfavouriteComponent,
     CompanyprofileComponent,
-    LandingComponent
+    LandingComponent,
+    CompanyfeedbackComponent
   ],
   imports: [
     BrowserModule, 

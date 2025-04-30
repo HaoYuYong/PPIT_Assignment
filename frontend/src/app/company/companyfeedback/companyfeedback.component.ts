@@ -8,13 +8,13 @@ import { addIcons } from 'ionicons';
 import { personCircleOutline } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-employeefeedback',
-  templateUrl: './employeefeedback.component.html',
-  styleUrls: ['./employeefeedback.component.scss'],
+  selector: 'app-companyfeedback',
+  templateUrl: './companyfeedback.component.html',
+  styleUrls: ['./companyfeedback.component.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class EmployeefeedbackComponent implements OnInit {
+export class CompanyfeedbackComponent implements OnInit {
   feedback = {
     title: '',
     description: ''

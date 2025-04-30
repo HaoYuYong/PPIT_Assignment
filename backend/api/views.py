@@ -2,7 +2,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
-from .models import User, JobPosition, AboutMe, Education, WorkExperience, Skills, JobScope, Favourite
+from .models import User, JobPosition, AboutMe, Education, WorkExperience, Skills, JobScope, Favourite, Feedback
 from django.views.decorators.http import require_http_methods
 import sqlite3
 from django.db import connection
@@ -1021,3 +1021,61 @@ def update_visibility(request):
          
     except Exception as e:
         return Response({'error': str(e)}, status=400)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def submit_feedback(request):
+    try:
+        data = json.loads(request.body)
+        
+        # Validate required fields
+        required_fields = ['uid', 'f_title', 'f_description']
+        if not all(field in data for field in required_fields):
+            return JsonResponse({'error': 'Missing required fields'}, status=400)
+        
+        # Create feedback
+        feedback = Feedback.objects.create(
+            uid=data['uid'],
+            f_title=data['f_title'],
+            f_description=data['f_description'],
+            status='new'  # Default status
+        )
+        
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Feedback submitted successfully',
+            'feedback': {
+                'bid': feedback.bid,
+                'f_title': feedback.f_title,
+                'status': feedback.status,
+                'created_at': feedback.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            }
+        }, status=201)
+        
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_user_feedback(request):
+    uid = request.GET.get('uid')
+    if not uid:
+        return JsonResponse({'error': 'UID is required'}, status=400)
+    
+    try:
+        feedbacks = Feedback.objects.filter(uid=uid).order_by('-created_at')
+        data = [{
+            'bid': feedback.bid,
+            'f_title': feedback.f_title,
+            'f_description': feedback.f_description,
+            'status': feedback.status,
+            'reply': feedback.reply,
+            'staff_id': feedback.staff_id,
+            'created_at': feedback.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'updated_at': feedback.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+        } for feedback in feedbacks]
+        return JsonResponse(data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

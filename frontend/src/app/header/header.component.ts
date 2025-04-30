@@ -9,6 +9,7 @@ import {
   heartOutline,
   personOutline,
   logInOutline,
+  chatboxOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit {
       heartOutline,
       personOutline,
       logInOutline,
+      chatboxOutline,
     });
   }
 

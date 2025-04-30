@@ -40,6 +40,11 @@
       <ion-icon slot="start" name="person-outline"></ion-icon>
       Profile
     </ion-button>
+    <ion-button routerLink="/emp-feedback">
+      <ion-icon slot="start" name="chatbox-outline"></ion-icon>
+      Feedback
+    </ion-button>
+
     <!-- Company Links -->
     } @if (userRole === 'company') {
     <ion-button routerLink="/comp-home">
@@ -57,6 +62,10 @@
     <ion-button routerLink="/comp-profile">
       <ion-icon slot="start" name="person-outline"></ion-icon>
       Profile
+    </ion-button>
+    <ion-button routerLink="/comp-feedback">
+      <ion-icon slot="start" name="chatbox-outline"></ion-icon>
+      Feedback
     </ion-button>
     }
   </ion-buttons>
