@@ -1,26 +1,30 @@
-<ion-content class="ion-padding" [class.ion-content-bg]="true">
+<ion-content class="ion-padding">
     <div class="container">
-        <div class="title" style="text-align: center;">
-            <h1>Forgot Password</h1>
-            <p>Enter your email address to receive instructions on how to reset your website</p>
-        </div>
-        
-    <div class="form-card">
-        <form (ngSubmit)="submitForm()" #forgotForm="ngForm">
-            <ion-item>
-                <ion-label position="floating" >Email</ion-label>
-                <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
-            </ion-item>
-            <ion-button expand="block" type="submit" [disabled]="forgotForm.invalid || loading">
-                {{loading ? 'Sending... ' : 'Send Reset Link'}}
-            </ion-button>
-    
-            <div *ngIf="message" class="message">{{ message }}</div>
-        </form>
-        <div class="content">
-
-        </div>
+      <h1 style="text-align: center;">Forgot Password</h1>
+      <p style="text-align: center;">Enter your email to receive a 6-digit reset code</p>
+      <form (ngSubmit)="submitForm()">
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" [disabled]="loading || !email.trim()">
+          {{ loading ? 'Sending...' : 'Send Code' }}
+        </ion-button>
+      </form>
+      <div *ngIf="codeSent" style="margin-top: 20px;">
+        <ion-item>
+          <ion-label position="floating">Enter 6-digit Code</ion-label>
+          <ion-input [(ngModel)]="codeInput" name="codeInput" maxlength="6" required></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="verifyCode()" [disabled]="!codeInput.trim()">
+          Verify Code
+        </ion-button>
+      </div>
+      <ion-button expand="block" color="success" *ngIf="codeVerified" (click)="goToNextPage()" style="margin-top: 20px;">
+         Continue
+      </ion-button>
+      <div *ngIf="message" class="message" [ngClass]="{ 'success': success, 'error': !success }">
+        {{ message }}
+      </div>
     </div>
-
-    </div>
-</ion-content>
+  </ion-content>

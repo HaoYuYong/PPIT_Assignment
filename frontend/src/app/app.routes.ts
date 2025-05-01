@@ -25,7 +25,7 @@ import { AdminfeedbacklistComponent } from './admin/adminfeedbacklist/adminfeedb
 import { StaffquestComponent } from './staff/staffquest/staffquest.component';
 import { StaffUserListComponent } from './staff/staff-user-list/staff-user-list.component';
 import { StaffCompanyListComponent } from './staff/staff-company-list/staff-company-list.component';
-
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 export const appRoutes: Routes = [
   // Default Route
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -42,6 +42,7 @@ export const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'homepage', component: LandingComponent },
   { path: 'forgot-password', component: ForgotPassComponent},
+  { path: 'password-reset', component: PasswordResetComponent},
   
   //Company
   { path: 'comp-home', component: CompanyhomeComponent },

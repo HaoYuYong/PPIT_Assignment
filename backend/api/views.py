@@ -18,7 +18,9 @@ import google.generativeai as genai
 import os
 from django.core.mail import send_mail
 from .serializers import UserSerializer
-
+import random
+from django.core.cache import cache
+from django.contrib.auth.hashers import make_password
 
 @csrf_exempt
 def register(request):
@@ -1023,16 +1025,18 @@ def forgot_password(request):
         data = json.loads(request.body)
         email = data.get('email')
 
+        #Check if its in our database
         if not email:
             return JsonResponse({'error': 'Email required'}, status=400)
         
-        #Check if its in our database
-
+        #Generate 6 digit random number
+        code = str(random.randint(100000, 999999))
+        #save to database for 10minutes
+        cache.set(f'reset_code_{email}', code, timeout=600)
         #send email
-
         send_mail(
-            subject='Password Reset Request',
-            message='test123',
+            subject='JobConnect Reset Code',
+            message=f'Your verification code is: {code}',
             from_email='jobconnectstaff@gmail.com',
             recipient_list=[email],
             fail_silently=False,
@@ -1041,6 +1045,46 @@ def forgot_password(request):
         return JsonResponse({'success': True})
     
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def password_reset(request):
+    try:
+        data = json.loads(request.body)
+        email = data.get('email')
+        new_password = data.get('new_password')
+
+        if not email or not new_password:
+            return JsonResponse({'error': 'Email and new_password are required'}, status=400)
+
+        user = User.objects.filter(email=email).first()
+        if not user:
+            return JsonResponse({'error': 'User not found'}, status=404)
+
+        user.password = make_password(new_password)
+        user.save()
+
+        return JsonResponse({'message': 'Password updated successfully'}, status=200)
+
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
+
+@csrf_exempt
+def verify_code(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        code = data.get('code')
+
+        stored_code = cache.get(f'reset_code_{email}')
+        if stored_code and stored_code == code:
+            return JsonResponse({'message': 'Code verified'})
+        else:
+            return JsonResponse({'error': 'Invalid code'}, status=400)
+
     
 @api_view(['PUT'])
 def update_visibility(request):
